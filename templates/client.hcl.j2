@@ -72,6 +72,10 @@ client {
     {% endfor -%}
     }
     {% endif %}
+
+    {% if nomad_node_pool -%}
+    node_pool = "{{ nomad_node_pool }}"
+    {% endif %}
 }
 
 {% macro plugin_config(config, count=1, width=4) %}
