@@ -44,4 +44,10 @@ authoritative_region = "{{ nomad_authoritative_region }}"
     encrypt = "{{ nomad_encrypt | default('') }}"
 
     raft_protocol = {{ nomad_raft_protocol }}
+
+{% if nomad_enable_memory_oversubscription %}
+    default_scheduler_config {
+        memory_oversubscription_enabled = true
+    }
+{% endif %}
 }
