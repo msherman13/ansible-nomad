@@ -1,13 +1,26 @@
 ---
 # File: main.yml handlers file for nomad
 
-- name: restart server
+- name: stop nomad
   service:
     name: nomad
-    state: restarted
+    state: stopped
   when: _nomad_node_server | bool
   listen: "restart nomad"
   throttle: 1
+
+- name: wait 30 seconds
+  pause:
+    seconds: 30
+  when: _nomad_node_server | bool
+  listen: "restart nomad"
+
+- name: start nomad
+  service:
+    name: nomad
+    state: started
+  when: _nomad_node_server | bool
+  listen: "restart nomad"
 
 - name: wait for server
   wait_for:
